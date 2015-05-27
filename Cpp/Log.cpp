@@ -125,10 +125,10 @@ bool CLog::Open(LPTSTR fileName, bool overwrite) {
 
 	hFile = CreateFile(fileName, GENERIC_WRITE, FILE_SHARE_READ, NULL, (overwrite ? CREATE_ALWAYS : OPEN_ALWAYS),
 		FILE_ATTRIBUTE_NORMAL, NULL);
-	lastErr = GetLastError();
 	if (hFile == INVALID_HANDLE_VALUE)
 		return false;
 
+	lastErr = GetLastError();
 	if (lastErr == ERROR_ALREADY_EXISTS && overwrite == false) {
 		retVal = SetFilePointer(hFile, 0, 0, FILE_END);
 		if (retVal > 0) 
