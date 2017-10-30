@@ -105,7 +105,7 @@ bool FileExists(LPTSTR fileName) {
 	h = FindFirstFile(searchPath, &wfData);
 	if (colonPtr) colonPtr[0] = ':';
 	if (h != INVALID_HANDLE_VALUE) {
-		delete searchPath;
+		delete[] searchPath;
 		FindClose(h);
 		return true;
 	}
@@ -117,7 +117,7 @@ bool FileExists(LPTSTR fileName) {
 	}
 	wcscat_s(searchPath, strMaxSize, L"*.*");
 	h = FindFirstFile(searchPath, &wfData);
-	delete searchPath;
+	delete[] searchPath;
 	if (h != INVALID_HANDLE_VALUE) {
 		FindClose(h); 
 		return true; 

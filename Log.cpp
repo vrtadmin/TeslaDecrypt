@@ -371,12 +371,12 @@ bool CVersionInfo::GetModuleVersionInfo(HMODULE hMod) {
 	modFileName = new TCHAR[MAX_PATH];
 	retVal = GetModuleFileName(hMod, modFileName, MAX_PATH);
 	if (!retVal) {
-		delete modFileName;
+		delete[] modFileName;
 		::WriteToLog(L"CLog::GetModuleVersion - Error while getting module filename...");
 		return false;
 	}
 	retVal = GetModuleVersionInfo(modFileName);
-	delete modFileName;
+	delete[] modFileName;
 	return (retVal == TRUE);
 }
 
@@ -413,7 +413,7 @@ bool CVersionInfo::GetModuleVersionInfo(LPTSTR modName = NULL) {
 	if (retVal) 
 		this->g_bVerInfoBuff = buff;
 	else 
-		if (buff) delete buff;
+		delete[] buff;
 
 	return (retVal == TRUE);
 }
